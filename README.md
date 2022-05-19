@@ -24,6 +24,45 @@ At least two options:
     pip install git+https://github.com/kaczmarj/minimal-setup.py-project
     ```
 
+# Upload package to pypi.org
+
+Note: See the [official documentation](https://packaging.python.org/en/latest/tutorials/packaging-projects/#generating-distribution-archives) for complete information.
+
+Uploading the package to pypi.org makes it possible for others to `pip install NAME` the package.
+
+This requires the packages `build` and `twine`: `pip install build twine`.
+
+1. Build the package.
+
+    ```
+    python -m build
+    ```
+
+2. Upload the package. First, upload it to pypi's testing site. You can check if things look OK there.
+
+    ```
+    python3 -m twine upload --repository testpypi dist/*
+    ```
+    
+    Then you can install it from the testing site, to make sure it works. Do this in a virtual environment.
+    
+    ```
+    python3 -m venv venv-test
+    source ./venv-test/bin/activate
+    python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps meow-YOUR-USERNAME-HERE
+    python3 -c "import meow"
+    meow
+    # Run any other tests you want.
+    # Clean up the venv when you're finished.
+    rm -r venv-test/
+    ```
+
+3. Once you're satisfied, upload it to the actual pypi site.
+
+    ```
+    python3 -m twine upload dist/*
+    ```
+
 # Choosing a license
 
 See https://choosealicense.com/.
