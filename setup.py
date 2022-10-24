@@ -7,7 +7,7 @@ setup(
     name="meow",
     version="1.0.0",
     packages=find_packages(),
-    python_requires=">=3.6, <4",
+    python_requires=">=3.6",
     entry_points={
         "console_scripts": [
             "meow=meow.cli:main",
